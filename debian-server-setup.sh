@@ -249,7 +249,7 @@ function secureSSH ()
 		${SPACER}
 
 		    With SSH keys in place, script will now set a strict access to your server. Root and user login
-			will be allowed only with a proper key and password login will be disabled.
+            will be allowed only with a proper key and password login will be disabled.
 
 		${SPACER}
 
@@ -279,8 +279,8 @@ function resolveNTP ()
 		${SPACER}
 
 		    Every server depends on a correct time, so script will now set a pool of know servers from
-			which we will allow time syncronization. Records will be added to local /etc/hosts file. 
-			Dont worry, if you already have any records in your /etc/hosts file, they wont be lost.
+            which we will allow time syncronization. Records will be added to local /etc/hosts file. 
+            Dont worry, if you already have any records in your /etc/hosts file, they wont be lost.
 
 		${SPACER}
 
@@ -318,8 +318,8 @@ function fwDefaultChains ()
 		${SPACER}
 
 		    At this stage script will set two custom iptables chains. Those chains will contain
-			basic firewall rules rquired for this setup. It will also fulsh all rules from default
-			chains (INPUT,FORWARD,OUTPUT).
+            basic firewall rules rquired for this setup. It will also fulsh all rules from default
+            chains (INPUT,FORWARD,OUTPUT).
 
 		${SPACER}
 
@@ -356,8 +356,8 @@ function fwBasicRules ()
 		${SPACER}
 
 		    With default chains in place, script will add default basic rules to those chains now.
-			Rules will cover established connections, allow SSH access and communication with
-			DNS and NTP servers (services).
+            Rules will cover established connections, allow SSH access and communication with
+            DNS and NTP servers (services).
 
 		${SPACER}
 
@@ -410,9 +410,9 @@ function assetLog ()
 		${SPACER}
 
 		    This is the final step this script will perform. It will set an asset log, a message, that will
-			be displayed every time someone logs in to the server. Messages displayed will contain a general
-			info and guideline regarding server (and services) administration. Once complete the server will
-			reboot to apply all changes made.
+            be displayed every time someone logs in to the server. Messages displayed will contain a general
+            info and guideline regarding server (and services) administration. Once complete the server will
+            reboot to apply all changes made.
 
 		${SPACER}
 
