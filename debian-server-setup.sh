@@ -25,17 +25,17 @@ set -eio pipefail
 
 function initialize ()
 {
-    # Misc items
-    declare -gr SPACER='----------------------------------------------------------------------------------------------------'
-    declare -gr E=$'\e[1;31;103m'			# (E) Error: highlighted text.
-    declare -gr W=$'\e[1;31;103m'			# (W) Warning: highlighted text.
-    declare -gr B=$'\e[1m'				# B for Bold.
-    declare -gr R=$'\e[0m'				# R for Reset.
+	# Misc items
+	declare -gr SPACER='----------------------------------------------------------------------------------------------------'
+	declare -gr E=$'\e[1;31;103m'			# (E) Error: highlighted text.
+	declare -gr W=$'\e[1;31;103m'			# (W) Warning: highlighted text.
+	declare -gr B=$'\e[1m'				# B for Bold.
+	declare -gr R=$'\e[0m'				# R for Reset.
 
-    # Display a warning.
-    clear
+	# Display a warning.
+	clear
 
-    # Show a warning.
+	# Show a warning.
 	cat <<-END
  
 		${SPACER}
