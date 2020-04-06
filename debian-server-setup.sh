@@ -58,28 +58,28 @@ function initialize ()
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} to proceed, or anything else to cancel, and press Enter: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} to proceed, or anything else to cancel, and press Enter: ${B}" ANSWER
+	echo "${R}"
 
-    # Terminate if required.
-    if [[ "${ANSWER,}" != 'y' ]]
-    then
-        echo
-        echo 'Terminated. Nothing done.'
-        echo
-        exit 1
-    fi
+	# Terminate if required.
+	if [[ "${ANSWER,}" != 'y' ]]
+	then
+		echo
+		echo 'Terminated. Nothing done.'
+		echo
+		exit 1
+	fi
 
-    # Check if user is root
-    if [[ "$(whoami)" != "root" ]]
-    then
-        echo
-        echo "${E}Script must be run as root user! Execution will abort now, please run script again as root user.${R}"
-        echo
-        exit 1
-    fi
+	# Check if user is root
+	if [[ "$(whoami)" != "root" ]]
+	then
+		echo
+		echo "${E}Script must be run as root user! Execution will abort now, please run script again as root user.${R}"
+		echo
+		exit 1
+	fi
 
 } # initialize end
 
