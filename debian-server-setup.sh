@@ -144,12 +144,12 @@ function debconfMinimal ()
 function sshInstall ()
 {
     cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    Script will now install openssh-server package. This will enable SSH remote login.
             It will also modify SSH server configuration, so password login is allowed.
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -176,12 +176,12 @@ function sshInstall ()
 function rootSSH ()
 {
     cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    At this stage, the script will generate private/public RSA keys for root user
             and white list the public portion for local SSH access.
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -209,7 +209,7 @@ function rootSSH ()
 function remoteSSH ()
 {
     cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    Now that root access is allowed, you need to white list your user. Please check the
             following article on how to generate private/public keys for your user and how to add
@@ -217,7 +217,7 @@ function remoteSSH ()
 
             https://zacks.eu/debian-10-buster-server-setup/
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -246,12 +246,12 @@ function remoteSSH ()
 function secureSSH ()
 {
 	cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    With SSH keys in place, script will now set a strict access to your server. Root and user login
             will be allowed only with a proper key and password login will be disabled.
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -276,13 +276,13 @@ function secureSSH ()
 function resolveNTP ()
 {
 	cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    Every server depends on a correct time, so script will now set a pool of know servers from
             which we will allow time syncronization. Records will be added to local /etc/hosts file. 
             Dont worry, if you already have any records in your /etc/hosts file, they wont be lost.
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -315,13 +315,13 @@ function resolveNTP ()
 function fwDefaultChains ()
 {
 	cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    At this stage script will set two custom iptables chains. Those chains will contain
             basic firewall rules rquired for this setup. It will also fulsh all rules from default
             chains (INPUT,FORWARD,OUTPUT).
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -353,13 +353,13 @@ function fwDefaultChains ()
 function fwBasicRules ()
 {
 	cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    With default chains in place, script will add default basic rules to those chains now.
             Rules will cover established connections, allow SSH access and communication with
             DNS and NTP servers (services).
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
@@ -407,14 +407,14 @@ function fwBasicRules ()
 function assetLog ()
 {
 	cat <<-END
-		${SPACER}
+        ${SPACER}
 
 		    This is the final step this script will perform. It will set an asset log, a message, that will
             be displayed every time someone logs in to the server. Messages displayed will contain a general
             info and guideline regarding server (and services) administration. Once complete the server will
             reboot to apply all changes made.
 
-		${SPACER}
+        ${SPACER}
 
 	END
 
