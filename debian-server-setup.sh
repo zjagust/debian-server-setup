@@ -202,7 +202,7 @@ function rootSSH ()
 	chmod 0600 /root/.ssh/authorized_keys
 
 	# Add root's pub key to auth files
-	echo -n "from=\"127.0.0.1\" $(cat /root/.ssh/id_rsa.pub)" >> /root/.ssh/authorized_keys
+	echo -e "from=\"127.0.0.1\" $(cat /root/.ssh/id_rsa.pub)\n" >> /root/.ssh/authorized_keys
 
 } # rootSSH end
 
@@ -222,6 +222,9 @@ function remoteSSH ()
 
 		    https://zacks.eu/debian-10-buster-server-setup/
 
+		    THIS IS A MANDATORY STEP, YOU NEED TO HAVE A PUBLIC KEY READY AS PASSWORD LOGIN WILL
+		    BE DISABLED. INSTRUCTIONS ON HOW TO INSERT KEY TO SERVER WILL BE GIVEN IN NEXT STEP.
+
 		${SPACER}
 
 	END
@@ -231,16 +234,16 @@ function remoteSSH ()
 	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
 	echo "${R}"
 
-	# Request user public key
-	echo -n "Please paste your public RSA key here in the following format -> \"ssh-rsa XXXXXXXXXXXX username@machine\", or press ENTER to skip for now: "
-	read RSA_KEY
+	# Request user public key - external
+	echo -e "On Windows, open ${B}Command Line${R} and please execute the following: "
+	echo -e "${B}type C:\Users\%USERNAME%\.ssh\id_rsa.pub | ssh root@127.0.0.1 -T \"cat >> /root/.ssh/authorized_keys\"${R}"
+	echo -e "On Linux, open ${B}Terminal${R} and please execute the following: "
+	echo -e "${B}cat /home/$(whoami)/.ssh/id_rsa.pub | ssh root@127.0.0.1 -T \"cat >> /root/.ssh/authorized_keys\"${R}"
 
-	if [ -z "$RSA_KEY" ]
-	then
-		echo -n "No RSA key provided, will continue without it."
-	else
-		echo $RSA_KEY >> /root/.ssh/authorized_keys
-	fi
+	# Complete pub key insert
+	local ANSWER
+	read -rp "Once keys are inserted, type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
 } # remoteSSH end
 
