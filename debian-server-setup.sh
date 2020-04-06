@@ -56,7 +56,7 @@ function initialize ()
 
         ${SPACER}
  
-    END
+	END
 
     # Ask for confirmation.
     local ANSWER
