@@ -36,7 +36,7 @@ function initialize ()
     clear
 
     # Show a warning.
-    cat <<-END
+	cat <<-END
  
 		${SPACER}
 
@@ -55,6 +55,8 @@ function initialize ()
 		    Please make sure you understand what is written above!
 
 		${SPACER}
+
+	END
 
     # Ask for confirmation.
     local ANSWER
