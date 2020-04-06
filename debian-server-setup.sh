@@ -35,8 +35,8 @@ function initialize ()
     # Display a warning.
     clear
 
-	# Show a warning.
-	cat <<-END
+    # Show a warning.
+    cat <<-END
  
         ${SPACER}
 
