@@ -40,7 +40,7 @@ function initialize ()
  
         ${SPACER}
 
-            ${B}** WARNING **${R}
+        ${B}** WARNING **${R}
 
             This script is only to be run on Debian 10 customized installations, as described on the following link:
             https://zacks.eu/debian-10-buster-initial-customization/
