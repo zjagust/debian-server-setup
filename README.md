@@ -3,7 +3,7 @@
 
 ## Prerequisites
 This will only work for Debian customized installations, as described in the following article:
-* [Debian 10 Buster initial customizetion](https://zacks.eu/debian-10-buster-initial-customization/)
+* [Debian 10 Buster initial customization](https://zacks.eu/debian-10-buster-initial-customization/)
 
 ## Version
 10.0.0 - Specifically for Debian 10 Buster release
