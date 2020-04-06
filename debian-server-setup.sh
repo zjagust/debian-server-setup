@@ -36,26 +36,26 @@ function initialize ()
     clear
 
     # Show a warning.
-    cat <<-END
+	cat <<-END
  
-        ${SPACER}
+		${SPACER}
 
-            ${B}** WARNING **${R}
+		    ${B}** WARNING **${R}
 
-            This script is only to be run on Debian 10 customized installations, as described on the following link:
-            https://zacks.eu/debian-10-buster-initial-customization/
+		    This script is only to be run on Debian 10 customized installations, as described on the following link:
+		    https://zacks.eu/debian-10-buster-initial-customization/
 
-            The script has a specific purpose and runs a certain tasks involving operating system environment
-            customization and software installation. Running this script anywhere at any time will leave you
-            with potentially un-bootable OS and software you may not want.
+		    The script has a specific purpose and runs a certain tasks involving operating system environment
+		    customization and software installation. Running this script anywhere at any time will leave you
+		    with potentially un-bootable OS and software you may not want.
 
-            A detailed overview of tasks this script will perform can be seen on the following link:
-            https://zacks.eu/debian-10-buster-server-setup/
+		    A detailed overview of tasks this script will perform can be seen on the following link:
+		    https://zacks.eu/debian-10-buster-server-setup/
 
-            Please make sure you understand what is written above!
+		    Please make sure you understand what is written above!
 
-        ${SPACER}
- 
+		${SPACER}
+
 	END
 
     # Ask for confirmation.
