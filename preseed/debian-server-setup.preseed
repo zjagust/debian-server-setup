@@ -1,0 +1,4 @@
+openssh-server  openssh-server/password-authentication  boolean true
+openssh-server  openssh-server/permit-root-login        boolean true
+iptables-persistent     iptables-persistent/autosave_v4 boolean true
+iptables-persistent     iptables-persistent/autosave_v6 boolean true
