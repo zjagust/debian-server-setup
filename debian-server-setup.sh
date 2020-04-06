@@ -237,8 +237,10 @@ function remoteSSH ()
 	# Request user public key - external
 	echo -e "On Windows, open ${B}Command Line${R} and please execute the following: "
 	echo -e "${B}type C:\Users\%USERNAME%\.ssh\id_rsa.pub | ssh root@127.0.0.1 -T \"cat >> /root/.ssh/authorized_keys\"${R}"
+	echo
 	echo -e "On Linux, open ${B}Terminal${R} and please execute the following: "
 	echo -e "${B}cat /home/$(whoami)/.ssh/id_rsa.pub | ssh root@127.0.0.1 -T \"cat >> /root/.ssh/authorized_keys\"${R}"
+	echo
 
 	# Complete pub key insert
 	local ANSWER
