@@ -245,6 +245,9 @@ function remoteSSH ()
 	read -rp "Once keys are inserted, type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
 	echo "${R}"
 
+	# Set a proper line endings - just in case
+	sed -i 's/\r$//' /root/.ssh/authorized_keys
+
 } # remoteSSH end
 
 #######################
