@@ -146,7 +146,7 @@ function sshInstall ()
     cat <<-END
         ${SPACER}
 
-		    Script will now install openssh-server package. This will enable SSH remote login.
+            Script will now install openssh-server package. This will enable SSH remote login.
             It will also modify SSH server configuration, so password login is allowed.
 
         ${SPACER}
@@ -154,9 +154,9 @@ function sshInstall ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
     # Install openssh-server package
     aptitude install -R -y openssh-server
@@ -178,7 +178,7 @@ function rootSSH ()
     cat <<-END
         ${SPACER}
 
-		    At this stage, the script will generate private/public RSA keys for root user
+            At this stage, the script will generate private/public RSA keys for root user
             and white list the public portion for local SSH access.
 
         ${SPACER}
@@ -186,9 +186,9 @@ function rootSSH ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
     # Generate keys for root
     ssh-keygen -t rsa -b 4096 -N "" -f /root/.ssh/id_rsa
@@ -211,7 +211,7 @@ function remoteSSH ()
     cat <<-END
         ${SPACER}
 
-		    Now that root access is allowed, you need to white list your user. Please check the
+            Now that root access is allowed, you need to white list your user. Please check the
             following article on how to generate private/public keys for your user and how to add
             them on the server:
 
@@ -222,9 +222,9 @@ function remoteSSH ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
     # Request user public key
     echo -n "Please paste your public RSA key here in the following format -> \"ssh-rsa XXXXXXXXXXXX username@machine\", or press ENTER to skip for now: "
@@ -248,7 +248,7 @@ function secureSSH ()
 	cat <<-END
         ${SPACER}
 
-		    With SSH keys in place, script will now set a strict access to your server. Root and user login
+            With SSH keys in place, script will now set a strict access to your server. Root and user login
             will be allowed only with a proper key and password login will be disabled.
 
         ${SPACER}
@@ -256,9 +256,9 @@ function secureSSH ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
 	# Secure SSH access
 	sed -i 's/^PermitRootLogin yes/PermitRootLogin without-password/g' /etc/ssh/sshd_config
@@ -278,7 +278,7 @@ function resolveNTP ()
 	cat <<-END
         ${SPACER}
 
-		    Every server depends on a correct time, so script will now set a pool of know servers from
+            Every server depends on a correct time, so script will now set a pool of know servers from
             which we will allow time syncronization. Records will be added to local /etc/hosts file. 
             Dont worry, if you already have any records in your /etc/hosts file, they wont be lost.
 
@@ -287,9 +287,9 @@ function resolveNTP ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
 	# Add a comment
 	echo -e "\n# Debian NTP Pool Servers" >> /etc/hosts
@@ -317,7 +317,7 @@ function fwDefaultChains ()
 	cat <<-END
         ${SPACER}
 
-		    At this stage script will set two custom iptables chains. Those chains will contain
+            At this stage script will set two custom iptables chains. Those chains will contain
             basic firewall rules rquired for this setup. It will also fulsh all rules from default
             chains (INPUT,FORWARD,OUTPUT).
 
@@ -326,9 +326,9 @@ function fwDefaultChains ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
 	# Flush default iptables chains
 	iptables -F INPUT
@@ -355,7 +355,7 @@ function fwBasicRules ()
 	cat <<-END
         ${SPACER}
 
-		    With default chains in place, script will add default basic rules to those chains now.
+            With default chains in place, script will add default basic rules to those chains now.
             Rules will cover established connections, allow SSH access and communication with
             DNS and NTP servers (services).
 
@@ -364,9 +364,9 @@ function fwBasicRules ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
 	# Established connections
 	iptables -I GENERAL-ALLOW -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m comment --comment Established -j ACCEPT
@@ -409,7 +409,7 @@ function assetLog ()
 	cat <<-END
         ${SPACER}
 
-		    This is the final step this script will perform. It will set an asset log, a message, that will
+            This is the final step this script will perform. It will set an asset log, a message, that will
             be displayed every time someone logs in to the server. Messages displayed will contain a general
             info and guideline regarding server (and services) administration. Once complete the server will
             reboot to apply all changes made.
@@ -419,9 +419,9 @@ function assetLog ()
 	END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+    echo "${R}"
 
 	# Set asset log
 	cd "$(dirname -- "$0")"
