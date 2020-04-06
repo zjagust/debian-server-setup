@@ -40,7 +40,7 @@ function initialize ()
  
         ${SPACER}
 
-        ${B}** WARNING **${R}
+            ${B}** WARNING **${R}
 
             This script is only to be run on Debian 10 customized installations, as described on the following link:
             https://zacks.eu/debian-10-buster-initial-customization/
@@ -56,12 +56,12 @@ function initialize ()
 
         ${SPACER}
  
-	END
+    END
 
     # Ask for confirmation.
-	local ANSWER
-	read -rp "Type ${B}Y${R} to proceed, or anything else to cancel, and press Enter: ${B}" ANSWER
-	echo "${R}"
+    local ANSWER
+    read -rp "Type ${B}Y${R} to proceed, or anything else to cancel, and press Enter: ${B}" ANSWER
+    echo "${R}"
 
     # Terminate if required.
     if [[ "${ANSWER,}" != 'y' ]]
