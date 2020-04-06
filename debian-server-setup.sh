@@ -90,6 +90,7 @@ function initialize ()
 function preseedInitialize ()
 {
 	cat <<-END
+		
 		${SPACER}
 
 		    Script will now initialize a preseed file required for software installation. Since all software installation
@@ -118,6 +119,7 @@ function preseedInitialize ()
 function debconfMinimal ()
 {
 	cat <<-END
+		
 		${SPACER}
 
 		    Script will now set installer detail level to a minimum. Since this is unattended installation,
@@ -143,29 +145,30 @@ function debconfMinimal ()
 
 function sshInstall ()
 {
-    cat <<-END
-        ${SPACER}
+	cat <<-END
+        
+		${SPACER}
 
-            Script will now install openssh-server package. This will enable SSH remote login.
-            It will also modify SSH server configuration, so password login is allowed.
+		    Script will now install openssh-server package. This will enable SSH remote login.
+		    It will also modify SSH server configuration, so password login is allowed.
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
-    # Install openssh-server package
-    aptitude install -R -y openssh-server
+	# Install openssh-server package
+	aptitude install -R -y openssh-server
 
-    # Permit password login
-    sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+	# Permit password login
+	sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
-    # Restart sshd service
-    service ssh restart
+	# Restart sshd service
+	service ssh restart
 
 } # sshInstall end
 
@@ -175,30 +178,31 @@ function sshInstall ()
 
 function rootSSH ()
 {
-    cat <<-END
-        ${SPACER}
+	cat <<-END
+        
+		${SPACER}
 
-            At this stage, the script will generate private/public RSA keys for root user
-            and white list the public portion for local SSH access.
+		    At this stage, the script will generate private/public RSA keys for root user
+		    and white list the public portion for local SSH access.
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
-    # Generate keys for root
-    ssh-keygen -t rsa -b 4096 -N "" -f /root/.ssh/id_rsa
+	# Generate keys for root
+	ssh-keygen -t rsa -b 4096 -N "" -f /root/.ssh/id_rsa
 
-    # Generate auth keys file for root
-    touch /root/.ssh/authorized_keys
-    chmod 0600 /root/.ssh/authorized_keys
+	# Generate auth keys file for root
+	touch /root/.ssh/authorized_keys
+	chmod 0600 /root/.ssh/authorized_keys
 
-    # Add root's pub key to auth files
-    echo -n "from=\"127.0.0.1\" $(cat /root/.ssh/id_rsa.pub)" >> /root/.ssh/authorized_keys
+	# Add root's pub key to auth files
+	echo -n "from=\"127.0.0.1\" $(cat /root/.ssh/id_rsa.pub)" >> /root/.ssh/authorized_keys
 
 } # rootSSH end
 
@@ -208,34 +212,35 @@ function rootSSH ()
 
 function remoteSSH ()
 {
-    cat <<-END
-        ${SPACER}
+	cat <<-END
+        
+		${SPACER}
 
-            Now that root access is allowed, you need to white list your user. Please check the
-            following article on how to generate private/public keys for your user and how to add
-            them on the server:
+		    Now that root access is allowed, you need to white list your user. Please check the
+		    following article on how to generate private/public keys for your user and how to add
+		    them on the server:
 
-            https://zacks.eu/debian-10-buster-server-setup/
+		    https://zacks.eu/debian-10-buster-server-setup/
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
-    # Request user public key
-    echo -n "Please paste your public RSA key here in the following format -> \"ssh-rsa XXXXXXXXXXXX username@machine\", or press ENTER to skip for now: "
-    read RSA_KEY
+	# Request user public key
+	echo -n "Please paste your public RSA key here in the following format -> \"ssh-rsa XXXXXXXXXXXX username@machine\", or press ENTER to skip for now: "
+	read RSA_KEY
 
-    if [ -z "$RSA_KEY" ]
-    then
-        echo -n "No RSA key provided, will continue without it."
-    else
-        echo $RSA_KEY >> /root/.ssh/authorized_keys
-    fi
+	if [ -z "$RSA_KEY" ]
+	then
+		echo -n "No RSA key provided, will continue without it."
+	else
+		echo $RSA_KEY >> /root/.ssh/authorized_keys
+	fi
 
 } # remoteSSH end
 
@@ -246,19 +251,20 @@ function remoteSSH ()
 function secureSSH ()
 {
 	cat <<-END
-        ${SPACER}
+        
+		${SPACER}
 
-            With SSH keys in place, script will now set a strict access to your server. Root and user login
-            will be allowed only with a proper key and password login will be disabled.
+		    With SSH keys in place, script will now set a strict access to your server. Root and user login
+		    will be allowed only with a proper key and password login will be disabled.
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
 	# Secure SSH access
 	sed -i 's/^PermitRootLogin yes/PermitRootLogin without-password/g' /etc/ssh/sshd_config
@@ -276,20 +282,21 @@ function secureSSH ()
 function resolveNTP ()
 {
 	cat <<-END
-        ${SPACER}
+        
+		${SPACER}
 
-            Every server depends on a correct time, so script will now set a pool of know servers from
-            which we will allow time syncronization. Records will be added to local /etc/hosts file. 
-            Dont worry, if you already have any records in your /etc/hosts file, they wont be lost.
+		    Every server depends on a correct time, so script will now set a pool of know servers from
+		    which we will allow time syncronization. Records will be added to local /etc/hosts file. 
+		    Dont worry, if you already have any records in your /etc/hosts file, they wont be lost.
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
 	# Add a comment
 	echo -e "\n# Debian NTP Pool Servers" >> /etc/hosts
@@ -315,20 +322,21 @@ function resolveNTP ()
 function fwDefaultChains ()
 {
 	cat <<-END
-        ${SPACER}
+        
+		${SPACER}
 
-            At this stage script will set two custom iptables chains. Those chains will contain
-            basic firewall rules rquired for this setup. It will also fulsh all rules from default
-            chains (INPUT,FORWARD,OUTPUT).
+		    At this stage script will set two custom iptables chains. Those chains will contain
+		    basic firewall rules rquired for this setup. It will also fulsh all rules from default
+		    chains (INPUT,FORWARD,OUTPUT).
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
 	# Flush default iptables chains
 	iptables -F INPUT
@@ -353,20 +361,21 @@ function fwDefaultChains ()
 function fwBasicRules ()
 {
 	cat <<-END
-        ${SPACER}
+        
+		${SPACER}
 
-            With default chains in place, script will add default basic rules to those chains now.
-            Rules will cover established connections, allow SSH access and communication with
-            DNS and NTP servers (services).
+		    With default chains in place, script will add default basic rules to those chains now.
+		    Rules will cover established connections, allow SSH access and communication with
+		    DNS and NTP servers (services).
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
 	# Established connections
 	iptables -I GENERAL-ALLOW -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m comment --comment Established -j ACCEPT
@@ -376,24 +385,24 @@ function fwBasicRules ()
 
 	# Allow DNS (Google Servers)
 	iptables -A GENERAL-ALLOW -s 8.8.4.4/32 -p udp -m udp --sport 53 -m comment --comment "Google DNS UDP" -j ACCEPT
-    iptables -A GENERAL-ALLOW -s 8.8.4.4/32 -p tcp -m tcp --sport 53 -m comment --comment "Google DNS TCP" -j ACCEPT
-    iptables -A GENERAL-ALLOW -s 8.8.8.8/32 -p udp -m udp --sport 53 -m comment --comment "Google DNS UDP" -j ACCEPT
-    iptables -A GENERAL-ALLOW -s 8.8.8.8/32 -p tcp -m tcp --sport 53 -m comment --comment "Google DNS TCP" -j ACCEPT
+	iptables -A GENERAL-ALLOW -s 8.8.4.4/32 -p tcp -m tcp --sport 53 -m comment --comment "Google DNS TCP" -j ACCEPT
+	iptables -A GENERAL-ALLOW -s 8.8.8.8/32 -p udp -m udp --sport 53 -m comment --comment "Google DNS UDP" -j ACCEPT
+	iptables -A GENERAL-ALLOW -s 8.8.8.8/32 -p tcp -m tcp --sport 53 -m comment --comment "Google DNS TCP" -j ACCEPT
 
 	# Allow NTP
 	iptables -A GENERAL-ALLOW -s $POOL_NTP_0/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
-    iptables -A GENERAL-ALLOW -s $POOL_NTP_1/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
-    iptables -A GENERAL-ALLOW -s $POOL_NTP_2/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
-    iptables -A GENERAL-ALLOW -s $POOL_NTP_3/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
+	iptables -A GENERAL-ALLOW -s $POOL_NTP_1/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
+	iptables -A GENERAL-ALLOW -s $POOL_NTP_2/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
+	iptables -A GENERAL-ALLOW -s $POOL_NTP_3/32 -p udp -m udp --sport 123 -m comment --comment "NTP Pool Servers" -j ACCEPT
 
 	# Allow ping and loopback communication
 	iptables -A GENERAL-ALLOW -p icmp -j ACCEPT
-    iptables -A GENERAL-ALLOW -i lo -j ACCEPT
+	iptables -A GENERAL-ALLOW -i lo -j ACCEPT
 
 	# Reject everything else
 	iptables -A REJECT-ALL -p tcp -j REJECT --reject-with tcp-reset
-    iptables -A REJECT-ALL -p udp -j REJECT --reject-with icmp-port-unreachable
-    iptables -A REJECT-ALL -p icmp -j DROP
+	iptables -A REJECT-ALL -p udp -j REJECT --reject-with icmp-port-unreachable
+	iptables -A REJECT-ALL -p icmp -j DROP
 
 	# Install iptables-persistent and save rules
 	aptitude install -R -y iptables-persistent
@@ -407,21 +416,22 @@ function fwBasicRules ()
 function assetLog ()
 {
 	cat <<-END
-        ${SPACER}
+        
+		${SPACER}
 
-            This is the final step this script will perform. It will set an asset log, a message, that will
-            be displayed every time someone logs in to the server. Messages displayed will contain a general
-            info and guideline regarding server (and services) administration. Once complete the server will
-            reboot to apply all changes made.
+		    This is the final step this script will perform. It will set an asset log, a message, that will
+		    be displayed every time someone logs in to the server. Messages displayed will contain a general
+		    info and guideline regarding server (and services) administration. Once complete the server will
+		    reboot to apply all changes made.
 
-        ${SPACER}
+		${SPACER}
 
 	END
 
-    # Ask for confirmation.
-    local ANSWER
-    read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
-    echo "${R}"
+	# Ask for confirmation.
+	local ANSWER
+	read -rp "Type ${B}Y${R} and press Enter to proceed: ${B}" ANSWER
+	echo "${R}"
 
 	# Set asset log
 	cd "$(dirname -- "$0")"
