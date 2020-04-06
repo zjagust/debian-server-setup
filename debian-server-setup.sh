@@ -63,14 +63,14 @@ function initialize ()
 	read -rp "Type ${B}Y${R} to proceed, or anything else to cancel, and press Enter: ${B}" ANSWER
 	echo "${R}"
 
-	# Terminate if required.
-	if [[ "${ANSWER,}" != 'y' ]]
-	then
-		echo
-		echo 'Terminated. Nothing done.'
-		echo
-		exit 1
-	fi
+    # Terminate if required.
+    if [[ "${ANSWER,}" != 'y' ]]
+    then
+        echo
+        echo 'Terminated. Nothing done.'
+        echo
+        exit 1
+    fi
 
     # Check if user is root
     if [[ "$(whoami)" != "root" ]]
